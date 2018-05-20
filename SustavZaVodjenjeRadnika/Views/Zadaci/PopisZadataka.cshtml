@@ -1,0 +1,76 @@
+﻿@model IEnumerable<SustavZaVodjenjeRadnika.Models.ZadaciProjekata>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.zadatak.naziv)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.zadatak.opis)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.zadatak.start_on)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.zadatak.rok)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.zadatak.status)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.projekt.naziv)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.tip.naziv)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.zadatak.zaposlenik_id)
+        </th>
+
+    </tr>
+    </thead>
+    
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.zadatak.naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.zadatak.opis)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.zadatak.start_on)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.zadatak.rok)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.zadatak.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.projekt.naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tip.naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.zadatak.zaposlenik_id)
+            </td>
+        </tr>
+    }
+    </tbody>
+
+</table>
+
+<a href="~/Zadaci/UnesiZadatak"><button class="btn btn-default">Unesi novi zadatak</button></a> 
+

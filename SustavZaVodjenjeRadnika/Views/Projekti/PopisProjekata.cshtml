@@ -1,0 +1,56 @@
+﻿@model IEnumerable<SustavZaVodjenjeRadnika.Models.OdjeliProjekta>
+    
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model=>model.Projekt.naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model=>model.Projekt.opis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model=>model.Projekt.start_on)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model=>model.Projekt.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model=>model.Odjel.naziv)
+        </th>
+    </tr>
+
+    </thead>
+    
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Projekt.naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Projekt.opis)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Projekt.start_on)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Projekt.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Odjel.naziv)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Projekt.id }) |
+                @Html.ActionLink("Obrisi", "Delete", new { id=item.Projekt.id })
+            </td>
+        </tr>
+
+
+    }
+
+    </tbody>
+</table>
+
+<a href="~/Projekti/UnesiProjekt"><button class="btn btn-default">Unesi projekt</button></a> 

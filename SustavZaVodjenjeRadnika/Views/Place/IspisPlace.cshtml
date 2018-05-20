@@ -1,0 +1,37 @@
+﻿@model IEnumerable<SustavZaVodjenjeRadnika.Models.Place>
+
+@{
+    ViewBag.Title = "IspisPlace";
+}
+
+<h2>IspisPlace</h2>
+
+<p>
+    Iznos place za radnika: @Model.Select(m => m.Zaposlenici.ime).First().ToString() @Model.Select(m => m.Zaposlenici.prezime).First().ToString() 
+</p>
+<table class="table">
+    <tr>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.Mjesec.naziv)
+        </th>
+        <th>@Html.DisplayNameFor(model => model.Mjesec.godina)</th>
+        <th>
+            @Html.DisplayNameFor(model => model.iznos_place)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Mjesec.naziv)
+        </td>
+        <td>@Html.DisplayFor(modelItem => item.Mjesec.godina)</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.iznos_place)
+        </td>
+    </tr>
+}
+
+</table>

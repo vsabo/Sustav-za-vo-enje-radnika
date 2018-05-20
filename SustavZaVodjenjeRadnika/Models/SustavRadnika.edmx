@@ -1,0 +1,1051 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SustavZaVodjenjeRadnikaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Administratori">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="prezime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="lozinka" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="korisnicko_ime" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bonus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="50" />
+          <Property Name="iznos" Type="float" />
+        </EntityType>
+        <EntityType Name="Bonus_placa">
+          <Key>
+            <PropertyRef Name="placa_id" />
+            <PropertyRef Name="bonus_id" />
+          </Key>
+          <Property Name="placa_id" Type="int" Nullable="false" />
+          <Property Name="bonus_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clanovi_projekta">
+          <Key>
+            <PropertyRef Name="zaposlenik_id" />
+            <PropertyRef Name="projekt_id" />
+          </Key>
+          <Property Name="zaposlenik_id" Type="int" Nullable="false" />
+          <Property Name="projekt_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kontrola_rada">
+          <Key>
+            <PropertyRef Name="zaposlenik_id" />
+            <PropertyRef Name="datum" />
+          </Key>
+          <Property Name="zaposlenik_id" Type="int" Nullable="false" />
+          <Property Name="datum" Type="date" Nullable="false" />
+          <Property Name="pocetak_rada" Type="time" Precision="7" />
+          <Property Name="kraj_rada" Type="time" Precision="7" />
+        </EntityType>
+        <EntityType Name="Mjesec">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="broj_dana" Type="int" Nullable="false" />
+          <Property Name="godina" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Odbitak">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="150" />
+          <Property Name="iznos" Type="float" />
+        </EntityType>
+        <EntityType Name="Odbitak_placa">
+          <Key>
+            <PropertyRef Name="placa_id" />
+            <PropertyRef Name="odbitak_id" />
+          </Key>
+          <Property Name="placa_id" Type="int" Nullable="false" />
+          <Property Name="odbitak_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Odjeli">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Place">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="zaposlenik_id" Type="int" Nullable="false" />
+          <Property Name="iznos_place" Type="float" Nullable="false" />
+          <Property Name="mjesec_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Projekti">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="opis" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="start_on" Type="datetime" />
+          <Property Name="odjel_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Satnica">
+          <Key>
+            <PropertyRef Name="zaposlenik_id" />
+            <PropertyRef Name="mjesec_id" />
+          </Key>
+          <Property Name="zaposlenik_id" Type="int" Nullable="false" />
+          <Property Name="mjesec_id" Type="int" Nullable="false" />
+          <Property Name="iznos" Type="float" Nullable="false" />
+          <Property Name="iznos_kn" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tip_zadataka">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="opis" Type="nvarchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="Vremenska_lista_zadataka">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="projekt_id" Type="int" Nullable="false" />
+          <Property Name="zaposlenik_id" Type="int" Nullable="false" />
+          <Property Name="start" Type="datetime" />
+          <Property Name="sati" Type="time" Precision="7" />
+          <Property Name="opis" Type="nvarchar" MaxLength="150" />
+          <Property Name="id_zadatka" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Zadaci">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="projekt_id" Type="int" Nullable="false" />
+          <Property Name="zaposlenik_id" Type="int" Nullable="false" />
+          <Property Name="naziv" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="opis" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="start_on" Type="datetime" />
+          <Property Name="rok" Type="datetime" />
+          <Property Name="status" Type="bit" Nullable="false" />
+          <Property Name="tip_zadatka" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Zaposlenici">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="prezime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="adresa" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="limit" Type="int" Nullable="false" />
+          <Property Name="broj_telefona" Type="int" Nullable="false" />
+          <Property Name="odjel_id" Type="int" Nullable="false" />
+          <Property Name="korisnicko_ime" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="lozinka" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Bonus_placa_Bonus">
+          <End Role="Bonus" Type="Self.Bonus" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Bonus_placa" Type="Self.Bonus_placa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bonus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Bonus_placa">
+              <PropertyRef Name="bonus_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bonus_placa_Place">
+          <End Role="Place" Type="Self.Place" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Bonus_placa" Type="Self.Bonus_placa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Place">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Bonus_placa">
+              <PropertyRef Name="placa_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clanovi_projekta_Projekti">
+          <End Role="Projekti" Type="Self.Projekti" Multiplicity="1" />
+          <End Role="Clanovi_projekta" Type="Self.Clanovi_projekta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projekti">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Clanovi_projekta">
+              <PropertyRef Name="projekt_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clanovi_projekta_Zaposlenici">
+          <End Role="Zaposlenici" Type="Self.Zaposlenici" Multiplicity="1" />
+          <End Role="Clanovi_projekta" Type="Self.Clanovi_projekta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zaposlenici">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Clanovi_projekta">
+              <PropertyRef Name="zaposlenik_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Kontrola_rada_Zaposlenici">
+          <End Role="Zaposlenici" Type="Self.Zaposlenici" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Kontrola_rada" Type="Self.Kontrola_rada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zaposlenici">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Kontrola_rada">
+              <PropertyRef Name="zaposlenik_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Odbitak_placa_Odbitak">
+          <End Role="Odbitak" Type="Self.Odbitak" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Odbitak_placa" Type="Self.Odbitak_placa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Odbitak">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Odbitak_placa">
+              <PropertyRef Name="odbitak_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Odbitak_placa_Place">
+          <End Role="Place" Type="Self.Place" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Odbitak_placa" Type="Self.Odbitak_placa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Place">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Odbitak_placa">
+              <PropertyRef Name="placa_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Place_Mjesec">
+          <End Role="Mjesec" Type="Self.Mjesec" Multiplicity="0..1" />
+          <End Role="Place" Type="Self.Place" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mjesec">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Place">
+              <PropertyRef Name="mjesec_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Place_Zaposlenici">
+          <End Role="Zaposlenici" Type="Self.Zaposlenici" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Place" Type="Self.Place" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zaposlenici">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Place">
+              <PropertyRef Name="zaposlenik_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Satnica_Mjesec">
+          <End Role="Mjesec" Type="Self.Mjesec" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Satnica" Type="Self.Satnica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mjesec">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Satnica">
+              <PropertyRef Name="mjesec_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Satnica_Zaposlenici">
+          <End Role="Zaposlenici" Type="Self.Zaposlenici" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Satnica" Type="Self.Satnica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zaposlenici">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Satnica">
+              <PropertyRef Name="zaposlenik_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vremenska_lista_zadataka_Zadaci">
+          <End Role="Zadaci" Type="Self.Zadaci" Multiplicity="1" />
+          <End Role="Vremenska_lista_zadataka" Type="Self.Vremenska_lista_zadataka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zadaci">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Vremenska_lista_zadataka">
+              <PropertyRef Name="id_zadatka" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zadaci_Projekti">
+          <End Role="Projekti" Type="Self.Projekti" Multiplicity="1" />
+          <End Role="Zadaci" Type="Self.Zadaci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projekti">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zadaci">
+              <PropertyRef Name="projekt_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zadaci_Tip_zadataka">
+          <End Role="Tip_zadataka" Type="Self.Tip_zadataka" Multiplicity="1" />
+          <End Role="Zadaci" Type="Self.Zadaci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tip_zadataka">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zadaci">
+              <PropertyRef Name="tip_zadatka" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zadaci_Zaposlenici">
+          <End Role="Zaposlenici" Type="Self.Zaposlenici" Multiplicity="1" />
+          <End Role="Zadaci" Type="Self.Zadaci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zaposlenici">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zadaci">
+              <PropertyRef Name="zaposlenik_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zaposlenici_Odjeli">
+          <End Role="Odjeli" Type="Self.Odjeli" Multiplicity="1" />
+          <End Role="Zaposlenici" Type="Self.Zaposlenici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Odjeli">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zaposlenici">
+              <PropertyRef Name="odjel_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SustavZaVodjenjeRadnikaModelStoreContainer">
+          <EntitySet Name="Administratori" EntityType="Self.Administratori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bonus" EntityType="Self.Bonus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bonus_placa" EntityType="Self.Bonus_placa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clanovi_projekta" EntityType="Self.Clanovi_projekta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kontrola_rada" EntityType="Self.Kontrola_rada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mjesec" EntityType="Self.Mjesec" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Odbitak" EntityType="Self.Odbitak" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Odbitak_placa" EntityType="Self.Odbitak_placa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Odjeli" EntityType="Self.Odjeli" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Place" EntityType="Self.Place" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projekti" EntityType="Self.Projekti" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Satnica" EntityType="Self.Satnica" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tip_zadataka" EntityType="Self.Tip_zadataka" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vremenska_lista_zadataka" EntityType="Self.Vremenska_lista_zadataka" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zadaci" EntityType="Self.Zadaci" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zaposlenici" EntityType="Self.Zaposlenici" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Bonus_placa_Bonus" Association="Self.FK_Bonus_placa_Bonus">
+            <End Role="Bonus" EntitySet="Bonus" />
+            <End Role="Bonus_placa" EntitySet="Bonus_placa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bonus_placa_Place" Association="Self.FK_Bonus_placa_Place">
+            <End Role="Place" EntitySet="Place" />
+            <End Role="Bonus_placa" EntitySet="Bonus_placa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clanovi_projekta_Projekti" Association="Self.FK_Clanovi_projekta_Projekti">
+            <End Role="Projekti" EntitySet="Projekti" />
+            <End Role="Clanovi_projekta" EntitySet="Clanovi_projekta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clanovi_projekta_Zaposlenici" Association="Self.FK_Clanovi_projekta_Zaposlenici">
+            <End Role="Zaposlenici" EntitySet="Zaposlenici" />
+            <End Role="Clanovi_projekta" EntitySet="Clanovi_projekta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kontrola_rada_Zaposlenici" Association="Self.FK_Kontrola_rada_Zaposlenici">
+            <End Role="Zaposlenici" EntitySet="Zaposlenici" />
+            <End Role="Kontrola_rada" EntitySet="Kontrola_rada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Odbitak_placa_Odbitak" Association="Self.FK_Odbitak_placa_Odbitak">
+            <End Role="Odbitak" EntitySet="Odbitak" />
+            <End Role="Odbitak_placa" EntitySet="Odbitak_placa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Odbitak_placa_Place" Association="Self.FK_Odbitak_placa_Place">
+            <End Role="Place" EntitySet="Place" />
+            <End Role="Odbitak_placa" EntitySet="Odbitak_placa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Place_Mjesec" Association="Self.FK_Place_Mjesec">
+            <End Role="Mjesec" EntitySet="Mjesec" />
+            <End Role="Place" EntitySet="Place" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Place_Zaposlenici" Association="Self.FK_Place_Zaposlenici">
+            <End Role="Zaposlenici" EntitySet="Zaposlenici" />
+            <End Role="Place" EntitySet="Place" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Satnica_Mjesec" Association="Self.FK_Satnica_Mjesec">
+            <End Role="Mjesec" EntitySet="Mjesec" />
+            <End Role="Satnica" EntitySet="Satnica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Satnica_Zaposlenici" Association="Self.FK_Satnica_Zaposlenici">
+            <End Role="Zaposlenici" EntitySet="Zaposlenici" />
+            <End Role="Satnica" EntitySet="Satnica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vremenska_lista_zadataka_Zadaci" Association="Self.FK_Vremenska_lista_zadataka_Zadaci">
+            <End Role="Zadaci" EntitySet="Zadaci" />
+            <End Role="Vremenska_lista_zadataka" EntitySet="Vremenska_lista_zadataka" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zadaci_Projekti" Association="Self.FK_Zadaci_Projekti">
+            <End Role="Projekti" EntitySet="Projekti" />
+            <End Role="Zadaci" EntitySet="Zadaci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zadaci_Tip_zadataka" Association="Self.FK_Zadaci_Tip_zadataka">
+            <End Role="Tip_zadataka" EntitySet="Tip_zadataka" />
+            <End Role="Zadaci" EntitySet="Zadaci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zadaci_Zaposlenici" Association="Self.FK_Zadaci_Zaposlenici">
+            <End Role="Zaposlenici" EntitySet="Zaposlenici" />
+            <End Role="Zadaci" EntitySet="Zadaci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zaposlenici_Odjeli" Association="Self.FK_Zaposlenici_Odjeli">
+            <End Role="Odjeli" EntitySet="Odjeli" />
+            <End Role="Zaposlenici" EntitySet="Zaposlenici" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SustavZaVodjenjeRadnikaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Administratori">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lozinka" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="korisnicko_ime" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bonus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="iznos" Type="Double" />
+          <NavigationProperty Name="Place" Relationship="Self.Bonus_placa" FromRole="Bonus" ToRole="Place" />
+        </EntityType>
+        <EntityType Name="Clanovi_projekta">
+          <Key>
+            <PropertyRef Name="zaposlenik_id" />
+            <PropertyRef Name="projekt_id" />
+          </Key>
+          <Property Name="zaposlenik_id" Type="Int32" Nullable="false" />
+          <Property Name="projekt_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Projekti" Relationship="Self.FK_Clanovi_projekta_Projekti" FromRole="Clanovi_projekta" ToRole="Projekti" />
+          <NavigationProperty Name="Zaposlenici" Relationship="Self.FK_Clanovi_projekta_Zaposlenici" FromRole="Clanovi_projekta" ToRole="Zaposlenici" />
+        </EntityType>
+        <EntityType Name="Kontrola_rada">
+          <Key>
+            <PropertyRef Name="zaposlenik_id" />
+            <PropertyRef Name="datum" />
+          </Key>
+          <Property Name="zaposlenik_id" Type="Int32" Nullable="false" />
+          <Property Name="datum" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="pocetak_rada" Type="Time" Precision="7" />
+          <Property Name="kraj_rada" Type="Time" Precision="7" />
+          <NavigationProperty Name="Zaposlenici" Relationship="SustavZaVodjenjeRadnikaModel.FK_Kontrola_rada_Zaposlenici" FromRole="Kontrola_rada" ToRole="Zaposlenici" />
+        </EntityType>
+        <EntityType Name="Mjesec">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="broj_dana" Type="Int32" Nullable="false" />
+          <Property Name="godina" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Place" Relationship="Self.FK_Place_Mjesec" FromRole="Mjesec" ToRole="Place" />
+          <NavigationProperty Name="Satnica" Relationship="Self.FK_Satnica_Mjesec" FromRole="Mjesec" ToRole="Satnica" />
+        </EntityType>
+        <EntityType Name="Odbitak">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="iznos" Type="Double" />
+          <NavigationProperty Name="Place" Relationship="Self.Odbitak_placa" FromRole="Odbitak" ToRole="Place" />
+        </EntityType>
+        <EntityType Name="Odjeli">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Zaposlenici" Relationship="Self.FK_Zaposlenici_Odjeli" FromRole="Odjeli" ToRole="Zaposlenici" />
+        </EntityType>
+        <EntityType Name="Place">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="zaposlenik_id" Type="Int32" Nullable="false" />
+          <Property Name="iznos_place" Type="Double" Nullable="false" />
+          <Property Name="mjesec_id" Type="Int32" />
+          <NavigationProperty Name="Mjesec" Relationship="Self.FK_Place_Mjesec" FromRole="Place" ToRole="Mjesec" />
+          <NavigationProperty Name="Zaposlenici" Relationship="Self.FK_Place_Zaposlenici" FromRole="Place" ToRole="Zaposlenici" />
+          <NavigationProperty Name="Bonus" Relationship="Self.Bonus_placa" FromRole="Place" ToRole="Bonus" />
+          <NavigationProperty Name="Odbitak" Relationship="Self.Odbitak_placa" FromRole="Place" ToRole="Odbitak" />
+        </EntityType>
+        <EntityType Name="Projekti">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="opis" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="start_on" Type="DateTime" Precision="3" />
+          <Property Name="odjel_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Clanovi_projekta" Relationship="Self.FK_Clanovi_projekta_Projekti" FromRole="Projekti" ToRole="Clanovi_projekta" />
+          <NavigationProperty Name="Zadaci" Relationship="Self.FK_Zadaci_Projekti" FromRole="Projekti" ToRole="Zadaci" />
+        </EntityType>
+        <EntityType Name="Satnica">
+          <Key>
+            <PropertyRef Name="zaposlenik_id" />
+            <PropertyRef Name="mjesec_id" />
+          </Key>
+          <Property Name="zaposlenik_id" Type="Int32" Nullable="false" />
+          <Property Name="mjesec_id" Type="Int32" Nullable="false" />
+          <Property Name="iznos" Type="Double" Nullable="false" />
+          <Property Name="iznos_kn" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Mjesec" Relationship="Self.FK_Satnica_Mjesec" FromRole="Satnica" ToRole="Mjesec" />
+          <NavigationProperty Name="Zaposlenici" Relationship="Self.FK_Satnica_Zaposlenici" FromRole="Satnica" ToRole="Zaposlenici" />
+        </EntityType>
+        <EntityType Name="Tip_zadataka">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="opis" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Zadaci" Relationship="Self.FK_Zadaci_Tip_zadataka" FromRole="Tip_zadataka" ToRole="Zadaci" />
+        </EntityType>
+        <EntityType Name="Vremenska_lista_zadataka">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="projekt_id" Type="Int32" Nullable="false" />
+          <Property Name="zaposlenik_id" Type="Int32" Nullable="false" />
+          <Property Name="start" Type="DateTime" Precision="3" />
+          <Property Name="sati" Type="Time" Precision="7" />
+          <Property Name="opis" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="id_zadatka" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Zadaci" Relationship="Self.FK_Vremenska_lista_zadataka_Zadaci" FromRole="Vremenska_lista_zadataka" ToRole="Zadaci" />
+        </EntityType>
+        <EntityType Name="Zadaci">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="projekt_id" Type="Int32" Nullable="false" />
+          <Property Name="zaposlenik_id" Type="Int32" Nullable="false" />
+          <Property Name="naziv" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="opis" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="start_on" Type="DateTime" Precision="3" />
+          <Property Name="rok" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="Boolean" Nullable="false" />
+          <Property Name="tip_zadatka" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Projekti" Relationship="Self.FK_Zadaci_Projekti" FromRole="Zadaci" ToRole="Projekti" />
+          <NavigationProperty Name="Tip_zadataka" Relationship="Self.FK_Zadaci_Tip_zadataka" FromRole="Zadaci" ToRole="Tip_zadataka" />
+          <NavigationProperty Name="Vremenska_lista_zadataka" Relationship="Self.FK_Vremenska_lista_zadataka_Zadaci" FromRole="Zadaci" ToRole="Vremenska_lista_zadataka" />
+          <NavigationProperty Name="Zaposlenici" Relationship="SustavZaVodjenjeRadnikaModel.FK_Zadaci_Zaposlenici" FromRole="Zadaci" ToRole="Zaposlenici" />
+        </EntityType>
+        <EntityType Name="Zaposlenici">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="prezime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="adresa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="limit" Type="Int32" Nullable="false" />
+          <Property Name="broj_telefona" Type="Int32" Nullable="false" />
+          <Property Name="odjel_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Clanovi_projekta" Relationship="Self.FK_Clanovi_projekta_Zaposlenici" FromRole="Zaposlenici" ToRole="Clanovi_projekta" />
+          <NavigationProperty Name="Odjeli" Relationship="Self.FK_Zaposlenici_Odjeli" FromRole="Zaposlenici" ToRole="Odjeli" />
+          <NavigationProperty Name="Place" Relationship="Self.FK_Place_Zaposlenici" FromRole="Zaposlenici" ToRole="Place" />
+          <NavigationProperty Name="Satnica" Relationship="Self.FK_Satnica_Zaposlenici" FromRole="Zaposlenici" ToRole="Satnica" />
+          <NavigationProperty Name="Kontrola_rada" Relationship="SustavZaVodjenjeRadnikaModel.FK_Kontrola_rada_Zaposlenici" FromRole="Zaposlenici" ToRole="Kontrola_rada" />
+          <Property Name="korisnicko_ime" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="lozinka" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Zadaci" Relationship="SustavZaVodjenjeRadnikaModel.FK_Zadaci_Zaposlenici" FromRole="Zaposlenici" ToRole="Zadaci" />
+        </EntityType>
+        <Association Name="FK_Clanovi_projekta_Projekti">
+          <End Role="Projekti" Type="Self.Projekti" Multiplicity="1" />
+          <End Role="Clanovi_projekta" Type="Self.Clanovi_projekta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projekti">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Clanovi_projekta">
+              <PropertyRef Name="projekt_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Clanovi_projekta_Zaposlenici">
+          <End Role="Zaposlenici" Type="Self.Zaposlenici" Multiplicity="1" />
+          <End Role="Clanovi_projekta" Type="Self.Clanovi_projekta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zaposlenici">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Clanovi_projekta">
+              <PropertyRef Name="zaposlenik_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Place_Mjesec">
+          <End Role="Mjesec" Type="Self.Mjesec" Multiplicity="0..1" />
+          <End Role="Place" Type="Self.Place" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mjesec">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Place">
+              <PropertyRef Name="mjesec_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Satnica_Mjesec">
+          <End Role="Mjesec" Type="Self.Mjesec" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Satnica" Type="Self.Satnica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Mjesec">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Satnica">
+              <PropertyRef Name="mjesec_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zaposlenici_Odjeli">
+          <End Role="Odjeli" Type="Self.Odjeli" Multiplicity="1" />
+          <End Role="Zaposlenici" Type="Self.Zaposlenici" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Odjeli">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zaposlenici">
+              <PropertyRef Name="odjel_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Place_Zaposlenici">
+          <End Role="Zaposlenici" Type="Self.Zaposlenici" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Place" Type="Self.Place" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zaposlenici">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Place">
+              <PropertyRef Name="zaposlenik_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zadaci_Projekti">
+          <End Role="Projekti" Type="Self.Projekti" Multiplicity="1" />
+          <End Role="Zadaci" Type="Self.Zadaci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projekti">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zadaci">
+              <PropertyRef Name="projekt_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Satnica_Zaposlenici">
+          <End Role="Zaposlenici" Type="Self.Zaposlenici" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Satnica" Type="Self.Satnica" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zaposlenici">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Satnica">
+              <PropertyRef Name="zaposlenik_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zadaci_Tip_zadataka">
+          <End Role="Tip_zadataka" Type="Self.Tip_zadataka" Multiplicity="1" />
+          <End Role="Zadaci" Type="Self.Zadaci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tip_zadataka">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zadaci">
+              <PropertyRef Name="tip_zadatka" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vremenska_lista_zadataka_Zadaci">
+          <End Role="Zadaci" Type="Self.Zadaci" Multiplicity="1" />
+          <End Role="Vremenska_lista_zadataka" Type="Self.Vremenska_lista_zadataka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zadaci">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Vremenska_lista_zadataka">
+              <PropertyRef Name="id_zadatka" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Bonus_placa">
+          <End Role="Bonus" Type="Self.Bonus" Multiplicity="*" />
+          <End Role="Place" Type="Self.Place" Multiplicity="*" />
+        </Association>
+        <Association Name="Odbitak_placa">
+          <End Role="Odbitak" Type="Self.Odbitak" Multiplicity="*" />
+          <End Role="Place" Type="Self.Place" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="SustavZaVodjenjeRadnikaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Administratori" EntityType="Self.Administratori" />
+          <EntitySet Name="Bonus" EntityType="Self.Bonus" />
+          <EntitySet Name="Clanovi_projekta" EntityType="Self.Clanovi_projekta" />
+          <EntitySet Name="Kontrola_rada" EntityType="Self.Kontrola_rada" />
+          <EntitySet Name="Mjesec" EntityType="Self.Mjesec" />
+          <EntitySet Name="Odbitak" EntityType="Self.Odbitak" />
+          <EntitySet Name="Odjeli" EntityType="Self.Odjeli" />
+          <EntitySet Name="Place" EntityType="Self.Place" />
+          <EntitySet Name="Projekti" EntityType="Self.Projekti" />
+          <EntitySet Name="Satnica" EntityType="Self.Satnica" />
+          <EntitySet Name="Tip_zadataka" EntityType="Self.Tip_zadataka" />
+          <EntitySet Name="Vremenska_lista_zadataka" EntityType="Self.Vremenska_lista_zadataka" />
+          <EntitySet Name="Zadaci" EntityType="Self.Zadaci" />
+          <EntitySet Name="Zaposlenici" EntityType="Self.Zaposlenici" />
+          <AssociationSet Name="FK_Clanovi_projekta_Projekti" Association="Self.FK_Clanovi_projekta_Projekti">
+            <End Role="Projekti" EntitySet="Projekti" />
+            <End Role="Clanovi_projekta" EntitySet="Clanovi_projekta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Clanovi_projekta_Zaposlenici" Association="Self.FK_Clanovi_projekta_Zaposlenici">
+            <End Role="Zaposlenici" EntitySet="Zaposlenici" />
+            <End Role="Clanovi_projekta" EntitySet="Clanovi_projekta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Place_Mjesec" Association="Self.FK_Place_Mjesec">
+            <End Role="Mjesec" EntitySet="Mjesec" />
+            <End Role="Place" EntitySet="Place" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Satnica_Mjesec" Association="Self.FK_Satnica_Mjesec">
+            <End Role="Mjesec" EntitySet="Mjesec" />
+            <End Role="Satnica" EntitySet="Satnica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zaposlenici_Odjeli" Association="Self.FK_Zaposlenici_Odjeli">
+            <End Role="Odjeli" EntitySet="Odjeli" />
+            <End Role="Zaposlenici" EntitySet="Zaposlenici" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Place_Zaposlenici" Association="Self.FK_Place_Zaposlenici">
+            <End Role="Zaposlenici" EntitySet="Zaposlenici" />
+            <End Role="Place" EntitySet="Place" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zadaci_Projekti" Association="Self.FK_Zadaci_Projekti">
+            <End Role="Projekti" EntitySet="Projekti" />
+            <End Role="Zadaci" EntitySet="Zadaci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Satnica_Zaposlenici" Association="Self.FK_Satnica_Zaposlenici">
+            <End Role="Zaposlenici" EntitySet="Zaposlenici" />
+            <End Role="Satnica" EntitySet="Satnica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zadaci_Tip_zadataka" Association="Self.FK_Zadaci_Tip_zadataka">
+            <End Role="Tip_zadataka" EntitySet="Tip_zadataka" />
+            <End Role="Zadaci" EntitySet="Zadaci" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vremenska_lista_zadataka_Zadaci" Association="Self.FK_Vremenska_lista_zadataka_Zadaci">
+            <End Role="Zadaci" EntitySet="Zadaci" />
+            <End Role="Vremenska_lista_zadataka" EntitySet="Vremenska_lista_zadataka" />
+          </AssociationSet>
+          <AssociationSet Name="Bonus_placa" Association="Self.Bonus_placa">
+            <End Role="Bonus" EntitySet="Bonus" />
+            <End Role="Place" EntitySet="Place" />
+          </AssociationSet>
+          <AssociationSet Name="Odbitak_placa" Association="Self.Odbitak_placa">
+            <End Role="Odbitak" EntitySet="Odbitak" />
+            <End Role="Place" EntitySet="Place" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Kontrola_rada_Zaposlenici" Association="SustavZaVodjenjeRadnikaModel.FK_Kontrola_rada_Zaposlenici">
+            <End Role="Zaposlenici" EntitySet="Zaposlenici" />
+            <End Role="Kontrola_rada" EntitySet="Kontrola_rada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zadaci_Zaposlenici" Association="SustavZaVodjenjeRadnikaModel.FK_Zadaci_Zaposlenici">
+            <End Role="Zaposlenici" EntitySet="Zaposlenici" />
+            <End Role="Zadaci" EntitySet="Zadaci" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Kontrola_rada_Zaposlenici">
+          <End Type="SustavZaVodjenjeRadnikaModel.Zaposlenici" Role="Zaposlenici" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="SustavZaVodjenjeRadnikaModel.Kontrola_rada" Role="Kontrola_rada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zaposlenici">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Kontrola_rada">
+              <PropertyRef Name="zaposlenik_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zadaci_Zaposlenici">
+          <End Type="SustavZaVodjenjeRadnikaModel.Zaposlenici" Role="Zaposlenici" Multiplicity="1" />
+          <End Type="SustavZaVodjenjeRadnikaModel.Zadaci" Role="Zadaci" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zaposlenici">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Zadaci">
+              <PropertyRef Name="zaposlenik_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SustavZaVodjenjeRadnikaModelStoreContainer" CdmEntityContainer="SustavZaVodjenjeRadnikaEntities">
+          <EntitySetMapping Name="Administratori">
+            <EntityTypeMapping TypeName="SustavZaVodjenjeRadnikaModel.Administratori">
+              <MappingFragment StoreEntitySet="Administratori">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ime" ColumnName="ime" />
+                <ScalarProperty Name="prezime" ColumnName="prezime" />
+                <ScalarProperty Name="lozinka" ColumnName="lozinka" />
+                <ScalarProperty Name="korisnicko_ime" ColumnName="korisnicko_ime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bonus">
+            <EntityTypeMapping TypeName="SustavZaVodjenjeRadnikaModel.Bonus">
+              <MappingFragment StoreEntitySet="Bonus">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="iznos" ColumnName="iznos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clanovi_projekta">
+            <EntityTypeMapping TypeName="SustavZaVodjenjeRadnikaModel.Clanovi_projekta">
+              <MappingFragment StoreEntitySet="Clanovi_projekta">
+                <ScalarProperty Name="zaposlenik_id" ColumnName="zaposlenik_id" />
+                <ScalarProperty Name="projekt_id" ColumnName="projekt_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kontrola_rada">
+            <EntityTypeMapping TypeName="SustavZaVodjenjeRadnikaModel.Kontrola_rada">
+              <MappingFragment StoreEntitySet="Kontrola_rada">
+                <ScalarProperty Name="zaposlenik_id" ColumnName="zaposlenik_id" />
+                <ScalarProperty Name="datum" ColumnName="datum" />
+                <ScalarProperty Name="pocetak_rada" ColumnName="pocetak_rada" />
+                <ScalarProperty Name="kraj_rada" ColumnName="kraj_rada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mjesec">
+            <EntityTypeMapping TypeName="SustavZaVodjenjeRadnikaModel.Mjesec">
+              <MappingFragment StoreEntitySet="Mjesec">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="broj_dana" ColumnName="broj_dana" />
+                <ScalarProperty Name="godina" ColumnName="godina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Odbitak">
+            <EntityTypeMapping TypeName="SustavZaVodjenjeRadnikaModel.Odbitak">
+              <MappingFragment StoreEntitySet="Odbitak">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="iznos" ColumnName="iznos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Odjeli">
+            <EntityTypeMapping TypeName="SustavZaVodjenjeRadnikaModel.Odjeli">
+              <MappingFragment StoreEntitySet="Odjeli">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Place">
+            <EntityTypeMapping TypeName="SustavZaVodjenjeRadnikaModel.Place">
+              <MappingFragment StoreEntitySet="Place">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="zaposlenik_id" ColumnName="zaposlenik_id" />
+                <ScalarProperty Name="iznos_place" ColumnName="iznos_place" />
+                <ScalarProperty Name="mjesec_id" ColumnName="mjesec_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projekti">
+            <EntityTypeMapping TypeName="SustavZaVodjenjeRadnikaModel.Projekti">
+              <MappingFragment StoreEntitySet="Projekti">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="start_on" ColumnName="start_on" />
+                <ScalarProperty Name="odjel_id" ColumnName="odjel_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Satnica">
+            <EntityTypeMapping TypeName="SustavZaVodjenjeRadnikaModel.Satnica">
+              <MappingFragment StoreEntitySet="Satnica">
+                <ScalarProperty Name="zaposlenik_id" ColumnName="zaposlenik_id" />
+                <ScalarProperty Name="mjesec_id" ColumnName="mjesec_id" />
+                <ScalarProperty Name="iznos" ColumnName="iznos" />
+                <ScalarProperty Name="iznos_kn" ColumnName="iznos_kn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tip_zadataka">
+            <EntityTypeMapping TypeName="SustavZaVodjenjeRadnikaModel.Tip_zadataka">
+              <MappingFragment StoreEntitySet="Tip_zadataka">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vremenska_lista_zadataka">
+            <EntityTypeMapping TypeName="SustavZaVodjenjeRadnikaModel.Vremenska_lista_zadataka">
+              <MappingFragment StoreEntitySet="Vremenska_lista_zadataka">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="projekt_id" ColumnName="projekt_id" />
+                <ScalarProperty Name="zaposlenik_id" ColumnName="zaposlenik_id" />
+                <ScalarProperty Name="start" ColumnName="start" />
+                <ScalarProperty Name="sati" ColumnName="sati" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="id_zadatka" ColumnName="id_zadatka" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zadaci">
+            <EntityTypeMapping TypeName="SustavZaVodjenjeRadnikaModel.Zadaci">
+              <MappingFragment StoreEntitySet="Zadaci">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="projekt_id" ColumnName="projekt_id" />
+                <ScalarProperty Name="zaposlenik_id" ColumnName="zaposlenik_id" />
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="start_on" ColumnName="start_on" />
+                <ScalarProperty Name="rok" ColumnName="rok" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="tip_zadatka" ColumnName="tip_zadatka" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zaposlenici">
+            <EntityTypeMapping TypeName="SustavZaVodjenjeRadnikaModel.Zaposlenici">
+              <MappingFragment StoreEntitySet="Zaposlenici">
+                <ScalarProperty Name="lozinka" ColumnName="lozinka" />
+                <ScalarProperty Name="korisnicko_ime" ColumnName="korisnicko_ime" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ime" ColumnName="ime" />
+                <ScalarProperty Name="prezime" ColumnName="prezime" />
+                <ScalarProperty Name="adresa" ColumnName="adresa" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="limit" ColumnName="limit" />
+                <ScalarProperty Name="broj_telefona" ColumnName="broj_telefona" />
+                <ScalarProperty Name="odjel_id" ColumnName="odjel_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Bonus_placa" TypeName="SustavZaVodjenjeRadnikaModel.Bonus_placa" StoreEntitySet="Bonus_placa">
+            <EndProperty Name="Bonus">
+              <ScalarProperty Name="id" ColumnName="bonus_id" />
+            </EndProperty>
+            <EndProperty Name="Place">
+              <ScalarProperty Name="id" ColumnName="placa_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="Odbitak_placa" TypeName="SustavZaVodjenjeRadnikaModel.Odbitak_placa" StoreEntitySet="Odbitak_placa">
+            <EndProperty Name="Odbitak">
+              <ScalarProperty Name="id" ColumnName="odbitak_id" />
+            </EndProperty>
+            <EndProperty Name="Place">
+              <ScalarProperty Name="id" ColumnName="placa_id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

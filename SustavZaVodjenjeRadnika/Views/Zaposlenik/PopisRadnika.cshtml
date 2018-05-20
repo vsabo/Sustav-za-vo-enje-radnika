@@ -1,0 +1,70 @@
+﻿@model IEnumerable<SustavZaVodjenjeRadnika.Models.OdjeliZaposlenika>
+    
+<table class="table" style="margin-top: 30px">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model=>model.Zaposlenik.ime) @Html.DisplayNameFor(model => model.Zaposlenik.prezime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model=>model.Zaposlenik.adresa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Zaposlenik.broj_telefona)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Zaposlenik.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Zaposlenik.limit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Odjel.naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Zaposlenik.korisnicko_ime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Zaposlenik.lozinka)
+        </th>
+    </tr>
+    </thead> 
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zaposlenik.ime) @Html.DisplayFor(modelItem => item.Zaposlenik.prezime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zaposlenik.adresa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zaposlenik.broj_telefona)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zaposlenik.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zaposlenik.limit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Odjel.naziv)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zaposlenik.korisnicko_ime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Zaposlenik.lozinka)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Zaposlenik.id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Zaposlenik.id })
+            </td>
+        </tr>
+    }
+    </tbody>
+    
+</table>
+
+ <a href="~/Zaposlenik/DodajRadnika"><button class="btn btn-default">Dodaj radnika</button></a> 
